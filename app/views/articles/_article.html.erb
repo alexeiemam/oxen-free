@@ -1,7 +1,7 @@
 <div id="<%= dom_id article %>" class="scaffold_record">
   <p>
     <strong>Title:</strong>
-    <%= article.title %>
+    <%= article.source %>
   </p>
 
   <p>
@@ -9,15 +9,17 @@
   </p>
 
   <p>
-    <strong><%= pluralize article.comments.count, "comment" %></strong>
+    <strong><%= pluralize article.total_likes, "like" %></strong>
   </p>
 
   <p>
     <strong>Content:</strong>
-    <%= article.content %>
+    <%= article.source %>
   </p>
 
+  <%= render "likes/new", article: article %>
+
   <p>
-    <%= link_to "Show this article", article %>
+    <%= link_to "Show this article", url_for(article) %>
   </p>
 </div>

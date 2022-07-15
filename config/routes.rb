@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'welcome/index'
+  get 'articles/:api_id', controller: 'articles', action: 'show', :as => :article
+  post 'articles/:api_id/like',  controller: 'likes', action: 'create', :as => :article_likes
 
-  resources :articles do
-    resources :comments
-  end
-
-  root 'welcome#index'
+  root 'articles#index'
 end
