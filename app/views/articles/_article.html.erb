@@ -1,25 +1,57 @@
-<div id="<%= dom_id article %>" class="scaffold_record">
-  <p>
-    <strong>Title:</strong>
-    <%= article.source %>
-  </p>
 
-  <p>
-    Posted <%= time_tag article.created_at %>
-  </p>
+  <article id="<%= dom_id article %>" itemscope itemtype="http://schema.org/Article">
+  <header>
+    <h1 itemprop="headline"><%= article.title %></h1>
+    <p>
+      Posted: <time itemprop="dateCreated datePublished"><%= time_tag article.api_created_at %></time>
+    </p>
+    <p>
+      Expires: <time itemprop="dateExpires"><%= time_tag article.api_expires_at %></time>
+    </p>
 
-  <p>
-    <strong><%= pluralize article.total_likes, "like" %></strong>
-  </p>
+    <div itemprop="author publisher" itemscope itemtype="http://schema.org/Organization">
+      <p>
+          <span itemprop="name"><%= article.source.dig('user','first_name') %></span>
+          <img style='aspect-ratio: 1/1; max-height: 100px;' itemprop="image logo" src="<%= article.source.dig('user','current_avatar','small') %>"/>
+      </p>
+    </div>
+  </header>
+  <section itemprop="articleBody" >
+    <div data-controller="swiper">
+     <div class="swiper" data-swiper-target="container">
+       <div class="swiper-wrapper">
+         <% article.source['images'].each do |image| %>
+           <div class="swiper-slide flex justify-center">
+             <%= image_tag image['files']['small'], class: "object-contain rounded-xl h-96 mx-auto" %>
+           </div>
+         <% end %>
+       </div>
 
-  <p>
-    <strong>Content:</strong>
-    <%= article.source %>
-  </p>
+       <div class="swiper-button-prev" data-swiper-target="prev">
+       </div>
+       <div class="swiper-button-next" data-swiper-target="next">
+       </div>
+     </div>
+   </div>
 
-  <%= render "likes/new", article: article %>
+        <p>
+          <strong>Source:</strong>
+          <pre><%= JSON.pretty_generate article.source %></pre>
+        </p>
 
-  <p>
-    <%= link_to "Show this article", url_for(article) %>
-  </p>
-</div>
+        <p>
+          <strong>Attributes:</strong>
+          <pre><%= JSON.pretty_generate article.attributes.except('source') %></pre>
+        </p>
+
+        <p>
+          <strong><%= pluralize article.total_likes, "like" %></strong>
+        </p>
+
+        <%= render "likes/new", article: article %>
+
+        <p>
+          <%= link_to "Show this article", url_for(article) %>
+        </p>
+  </section>
+  </article>

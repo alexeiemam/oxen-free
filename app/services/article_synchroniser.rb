@@ -11,6 +11,7 @@ class ArticleSynchroniser
   def formatted_articles
     @formatted_articles ||=
       current_articles.map do |api_article|
+        # t.string :title, index: true
         # t.integer :api_id, unique: true, index: true
         # t.integer :api_collection_id, unique: true, index: true
         # t.string :api_status, index: true
@@ -29,6 +30,7 @@ class ArticleSynchroniser
 
         {
           source: api_article,
+          title: api_article['title'],
           api_id: api_article['id'],
           api_collection_id:  api_article.dig('collection','id'),
           api_status: api_article['status'],
@@ -48,8 +50,8 @@ class ArticleSynchroniser
       end
   end
 
-  def create!
+  def create_and_publish!
     created_articles = Article.create!(formatted_articles)
-    Article.where(id: formatted_articles.map{|art| art[:api_id]}).update_all(published_at: Time.current)
+    Article.where(id: created_articles.map(&:id)).update_all(published_at: Time.current)
   end
 end

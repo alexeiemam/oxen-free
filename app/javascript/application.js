@@ -4,4 +4,6 @@ import "controllers"
 import "trix"
 import "@rails/actiontext"
 
-console.log('Hello World from application.js');
+import Swiper, { Navigation } from "swiper";
+
+Swiper.use([Navigation]);

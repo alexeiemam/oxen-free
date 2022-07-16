@@ -2,6 +2,7 @@ class CreateArticles < ActiveRecord::Migration[7.0]
   def change
     create_table :articles do |t|
       t.jsonb :source
+      t.string :title, index: true
       t.integer :api_id, unique: true, index: true
       t.integer :api_collection_id, unique: true, index: true
       t.string :api_status, index: true

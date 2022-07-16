@@ -13,5 +13,25 @@
 
   <body>
     <%= yield %>
+      <script>
+    (function(){
+  var scrollPositions = {};
+
+  addEventListener("turbo:before-render", function(){
+    document.querySelectorAll("[data-turbo-permanent]").forEach(function(element){
+      console.log('yo')
+      scrollPositions[element.id] = element.scrollTop;
+    });
+  });
+
+  addEventListener("turbo:render", function(){
+    console.log('hee')
+    document.querySelectorAll("[data-turbo-permanent]").forEach(function(element){
+      element.scrollTop = scrollPositions[element.id];
+    });
+  });
+})();
+</script>
   </body>
+
 </html>

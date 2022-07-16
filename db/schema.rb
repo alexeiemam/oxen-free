@@ -64,6 +64,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_15_203932) do
 
   create_table "articles", force: :cascade do |t|
     t.jsonb "source"
+    t.string "title"
     t.integer "api_id"
     t.integer "api_collection_id"
     t.string "api_status"
@@ -97,6 +98,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_15_203932) do
     t.index ["api_user_rating_number"], name: "index_articles_on_api_user_rating_number"
     t.index ["api_view_count"], name: "index_articles_on_api_view_count"
     t.index ["published_at"], name: "index_articles_on_published_at"
+    t.index ["title"], name: "index_articles_on_title"
   end
 
   create_table "likes", force: :cascade do |t|
