@@ -1,13 +1,14 @@
 ![Ruby](https://github.com/alexeiemam/oxen-free/workflows/Ruby/badge.svg)
 
 # Oxen-Free
-This app pulls data from an API and displays that data as articles.
+[This demo app](https://oliolioxenfree.herokuapp.com/?allow_stale) pulls data from an API and displays that data as articles.
 It permits those articles to be "Liked".
+That is all it does.
 
 It is built upon a [demo application built elsewhere](https://github.com/ryanwi/rails7-on-docker) whose setup instructions are so comprehensive
 that I have left them verbatim below.
 
-Oh yes, it does not mention that you will need to install Docker as a prerequisite... or you can go your own non-docker way if you prefer to live the renegade life close to the metal.
+It does not mention that you will need to [install Docker](https://www.docker.com/products/docker-desktop/) as a prerequisite... but you can go your own non-docker way if you prefer to live the renegade life close to the metal.
 
 # Rails 7 on Docker demo application
 
