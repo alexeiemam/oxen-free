@@ -1,9 +1,15 @@
-
+<%
+  #TODO
+  # Move Styling out of html
+  # Ensure Semantic html
+  # Improve Accessibility / aria attributes
+  # Add image gallery with lightbox overlay effect
+%>
 <article id="<%= dom_id article %>" itemscope itemtype="http://schema.org/Article">
   <header>
     <h2 itemprop="headline"><%= article.title %></h2>
     <div class="article-images">
-    <% article.source['images'].each_with_index do |image, ix| %>
+    <% article.source['images']&.each_with_index do |image, ix| %>
       <a href="<%= image['files']['original'] %>" target='_blank'>
         <img src="<%= image['files']['small'] %>"
           alt="Photo (number <%= ix+1 %> of <%= article.source['images'].count %>) showcasing <%= article.title %>"
@@ -32,11 +38,15 @@
       <dt>Impressions</dt>
       <dd><%= article.api_impression_count %></dd>
 
+      <% if article.api_created_at %>
       <dt>Posted</dt>
       <dd><time itemprop="dateCreated datePublished"><%= time_tag article.api_created_at %></time></dd>
+      <% end %>
 
+      <% if article.api_expires_at %>
       <dt>Expires</dt>
       <dd> <time itemprop="dateExpires"><%= time_tag article.api_expires_at %></time></dd>
+      <% end %>
 
       <dt>Distance from... maybe you?</dt>
       <dd><%= article.api_distance %> (kilometres? miles? parsecs?)</dd>
@@ -58,7 +68,7 @@
         <dt>Roles</dt>
         <dd>
           <ul>
-          <% article.source.dig('user','roles').each do |role|  %>
+          <% article.source.dig('user','roles')&.each do |role|  %>
             <li><%= role %>
           <% end %>
           </ul>

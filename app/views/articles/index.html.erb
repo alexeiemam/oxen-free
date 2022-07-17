@@ -2,10 +2,14 @@
 
 <h1>Articles</h1>
 <dl>
+<%- if Article.last_checked_at -%>
 <dt>Last checked: </dt>
 <dd><%= time_tag Article.last_checked_at %></dd>
+<%- end -%>
+<%- if Article.last_updated_at -%>
 <dt>Last updated:</dt>
 <dd><%= time_tag Article.last_updated_at %></dd>
+<%- end -%>
 </dl>
 <div id="articles">
   <% @articles.each do |article| %>
