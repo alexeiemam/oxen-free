@@ -16,9 +16,7 @@
         <img src="<%= image['files']['small'] %>"
           alt="Photo (number <%= ix+1 %> of <%= article.source['images'].count %>) showcasing <%= article.title %>"
           srcset="<%= image['files']['small'] %> 80w, <%= image['files']['medium'] %> 300w, <%= image['files']['large'] %> 720w"
-          style= "aspect-ratio: <%= image["dimensions"]["width"] %>/<%= image["dimensions"]["height"] %>; max-height: 100px; object-fit: contain"
-        >
-      </a>
+          style= "aspect-ratio: <%= image["dimensions"]["width"] %>/<%= image["dimensions"]["height"] %>; max-height: 100px; object-fit: contain"/></a>
     <% end %>
     </div>
     <dl>
