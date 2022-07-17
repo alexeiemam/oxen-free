@@ -73,7 +73,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_17_170343) do
     t.datetime "published_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "likes_count"
+    t.integer "likes_count", default: 0
     t.index ["api_collection_id"], name: "index_articles_on_api_collection_id"
     t.index ["api_created_at"], name: "index_articles_on_api_created_at"
     t.index ["api_distance"], name: "index_articles_on_api_distance"
