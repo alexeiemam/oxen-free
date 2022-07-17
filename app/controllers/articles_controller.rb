@@ -16,6 +16,10 @@ class ArticlesController < ApplicationController
     # e.g.
     # - authenticated postback route from API source to trigger synchronisation
     # - periodic background fetching by app polling
+
+    # @todo
+    # Realtime updates to list using turbo streams
+    # For Like Count change, For background Article attribute change, etc.
     ArticleSynchroniser.new.sync_and_publish! unless params.has_key?(:allow_stale)
     @articles = Article.published
   end
