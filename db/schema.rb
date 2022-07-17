@@ -65,7 +65,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_17_061508) do
     t.integer "api_price"
     t.integer "api_user_rating_number"
     t.integer "api_user_rating_count"
-    t.integer "api_distance"
+    t.float "api_distance"
     t.point "api_location"
     t.datetime "api_created_at", precision: nil
     t.datetime "api_updated_at", precision: nil

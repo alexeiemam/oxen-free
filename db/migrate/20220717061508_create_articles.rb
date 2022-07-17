@@ -13,7 +13,7 @@ class CreateArticles < ActiveRecord::Migration[7.0]
       t.integer :api_price, index: true
       t.integer :api_user_rating_number, index: true
       t.integer :api_user_rating_count, index: true
-      t.integer :api_distance, index: true
+      t.float :api_distance, index: true
       t.column :api_location, :point
       t.timestamp :api_created_at, index: true
       t.timestamp :api_updated_at, index: true
