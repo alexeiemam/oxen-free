@@ -56,19 +56,22 @@ RSpec.describe "/likes", type: :request do
   #   end
   # end
   #
-  # describe "POST /create" do
-  #   context "with valid parameters" do
-  #     it "creates a new Like" do
-  #       expect {
-  #         post likes_url, params: { like: valid_attributes }
-  #       }.to change(Like, :count).by(1)
-  #     end
-  #
-  #     it "redirects to the created like" do
-  #       post likes_url, params: { like: valid_attributes }
-  #       expect(response).to redirect_to(like_url(Like.last))
-  #     end
-  #   end
+  describe "POST /create" do
+    context "with valid parameters" do
+      it "creates a new Like" do
+        Article.create(api_id: 160)
+        expect {
+          post article_likes_url(api_id: 160), params: { like: {} }
+        }.to change(Like, :count).by(1)
+      end
+
+      it "redirects to the liked article" do
+        article = Article.create(api_id: 165)
+        post article_likes_url(api_id: 165), params: { like: {} }
+        expect(response).to redirect_to(url_for(article))
+      end
+    end
+  end
   #
   #   context "with invalid parameters" do
   #     it "does not create a new Like" do
