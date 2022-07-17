@@ -12,7 +12,7 @@ class ArticleSynchroniser
     Article.transaction do
       # Unpublish articles not in latest api fetch
       unpublishable_local_articles.update_all(published_at: nil)
-      # Update or create records based on whether they exist
+      # Update or create records for articles in latest api fetch
       Article.upsert_all(formatted_article_payloads, unique_by: :api_id)
       # Publish records in latest api fetch
       updateable_local_articles.update_all(published_at: Time.current)
