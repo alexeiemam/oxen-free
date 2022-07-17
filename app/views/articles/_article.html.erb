@@ -30,7 +30,8 @@
       <dd><%= article.api_status %></dd>
 
       <dt>Likes</dt>
-      <dd><%= article.api_like_count %></dd>
+      <dd><%= article.total_likes %></dd>
+      <%= render "likes/new", article: article %>
 
       <dt>Views</dt>
       <dd><%= article.api_view_count %></dd>

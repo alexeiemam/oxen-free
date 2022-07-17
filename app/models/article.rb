@@ -1,5 +1,5 @@
 class Article < ApplicationRecord
-
+  has_many :likes
   validates_uniqueness_of :api_id
 
   scope :published,       -> { where("published_at <= ?", Time.current) }
@@ -29,10 +29,7 @@ class Article < ApplicationRecord
   end
 
   def total_likes
-    likes.count + api_likes_total
+    likes.count + api_like_count
   end
 
-  def api_likes_total
-    (source.dig('reactions', 'likes') || 0)
-  end
 end
