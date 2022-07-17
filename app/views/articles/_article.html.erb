@@ -62,6 +62,7 @@
 
     <p> Being given away by</p>
     <div itemprop="author publisher" itemscope itemtype="http://schema.org/Organization">
+      <a href="<%= article.source.dig('user','current_avatar','original') %>" target='_blank'>
       <img
         alt="Avatar image for user <%= article.source.dig('user','first_name') %>"
         style='aspect-ratio: 1/1; max-height: 100px; object-fit: cover; border-radius: 50%'
@@ -69,6 +70,7 @@
         srcset="<%= article.source.dig('user','current_avatar','small') %> 100w, <%= article.source.dig('user','current_avatar','large') %> 600w"
         src="<%= article.source.dig('user','current_avatar','small') %>"
       />
+      </a>
       <dl>
         <dt>Name</dt>
         <dd itemProp="name"><%= article.source.dig('user','first_name') %><dd>
