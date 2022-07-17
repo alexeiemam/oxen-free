@@ -3,7 +3,7 @@ class LikesController < ApplicationController
 
   def create
     @article.likes.create!
-    redirect_back_or_to(url_for(@article))
+    redirect_to (url_for(@article))
   end
 
   private
