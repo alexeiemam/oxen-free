@@ -1,23 +1,81 @@
-<div id="<%= dom_id article %>" class="scaffold_record">
-  <p>
-    <strong>Title:</strong>
-    <%= article.title %>
-  </p>
+<%
+  #TODO
+  # Move Styling out of html
+  # Ensure Semantic html
+  # Improve Accessibility / aria attributes
+  # Add image gallery with lightbox overlay effect
+%>
+<article id="<%= dom_id article %>" itemscope itemtype="http://schema.org/Article">
+  <header>
+    <h2 itemprop="headline"><%= article.title %></h2>
+    <div class="article-images">
+    <% article.source['images']&.each_with_index do |image, ix| %>
+      <a href="<%= image['files']['original'] %>" target='_blank'>
+        <img src="<%= image['files']['small'] %>"
+          alt="Photo (number <%= ix+1 %> of <%= article.source['images'].count %>) showcasing <%= article.title %>"
+          srcset="<%= image['files']['small'] %> 80w, <%= image['files']['medium'] %> 300w, <%= image['files']['large'] %> 720w"
+          style= "aspect-ratio: <%= image["dimensions"]["width"] %>/<%= image["dimensions"]["height"] %>; max-height: 100px; object-fit: contain"
+        >
+      </a>
+    <% end %>
+    </div>
+    <dl>
+      <dt>Description</dt>
+      <dd><%= article.source['description'] %></dd>
 
-  <p>
-    Posted <%= time_tag article.created_at %>
-  </p>
+      <dt>Collection notes</dt>
+      <dd><%= article.source['collection_notes'] %></dd>
 
-  <p>
-    <strong><%= pluralize article.comments.count, "comment" %></strong>
-  </p>
+      <dt>Status</dt>
+      <dd><%= article.api_status %></dd>
 
-  <p>
-    <strong>Content:</strong>
-    <%= article.content %>
-  </p>
+      <dt>Likes</dt>
+      <dd><%= article.api_like_count %></dd>
 
-  <p>
-    <%= link_to "Show this article", article %>
-  </p>
-</div>
+      <dt>Views</dt>
+      <dd><%= article.api_view_count %></dd>
+
+      <dt>Impressions</dt>
+      <dd><%= article.api_impression_count %></dd>
+
+      <% if article.api_created_at %>
+      <dt>Posted</dt>
+      <dd><time itemprop="dateCreated datePublished"><%= time_tag article.api_created_at %></time></dd>
+      <% end %>
+
+      <% if article.api_expires_at %>
+      <dt>Expires</dt>
+      <dd> <time itemprop="dateExpires"><%= time_tag article.api_expires_at %></time></dd>
+      <% end %>
+
+      <dt>Distance from... maybe you?</dt>
+      <dd><%= article.api_distance %> (kilometres? miles? parsecs?)</dd>
+
+    </dl>
+
+    <p> Being given away by</p>
+    <div itemprop="author publisher" itemscope itemtype="http://schema.org/Organization">
+      <img
+        alt="Avatar image for user <%= article.source.dig('user','first_name') %>"
+        style='aspect-ratio: 1/1; max-height: 100px; object-fit: cover; border-radius: 50%'
+        itemprop="image logo"
+        srcset="<%= article.source.dig('user','current_avatar','small') %> 100w, <%= article.source.dig('user','current_avatar','large') %> 600w"
+        src="<%= article.source.dig('user','current_avatar','small') %>"
+      />
+      <dl>
+        <dt>Name</dt>
+        <dd itemProp="name"><%= article.source.dig('user','first_name') %><dd>
+        <dt>Roles</dt>
+        <dd>
+          <ul>
+          <% article.source.dig('user','roles')&.each do |role|  %>
+            <li><%= role %>
+          <% end %>
+          </ul>
+        </dd>
+      </dl>
+    </div>
+  </header>
+  <section itemprop="articleBody" >
+  </section>
+</article>

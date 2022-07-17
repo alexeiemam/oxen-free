@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_16_185503) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_07_17_061508) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,8 +19,8 @@ ActiveRecord::Schema.define(version: 2021_12_16_185503) do
     t.text "body"
     t.string "record_type", null: false
     t.bigint "record_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
   end
 
@@ -30,7 +29,7 @@ ActiveRecord::Schema.define(version: 2021_12_16_185503) do
     t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -43,7 +42,7 @@ ActiveRecord::Schema.define(version: 2021_12_16_185503) do
     t.string "service_name", null: false
     t.bigint "byte_size", null: false
     t.string "checksum"
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -54,21 +53,44 @@ ActiveRecord::Schema.define(version: 2021_12_16_185503) do
   end
 
   create_table "articles", force: :cascade do |t|
+    t.integer "api_id", null: false
+    t.jsonb "source", default: {}
     t.string "title"
-    t.text "content"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "comments", force: :cascade do |t|
-    t.bigint "article_id", null: false
-    t.text "content"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["article_id"], name: "index_comments_on_article_id"
+    t.integer "api_collection_id"
+    t.string "api_status"
+    t.string "api_section"
+    t.integer "api_view_count"
+    t.integer "api_like_count"
+    t.integer "api_impression_count"
+    t.integer "api_price"
+    t.integer "api_user_rating_number"
+    t.integer "api_user_rating_count"
+    t.float "api_distance"
+    t.point "api_location"
+    t.datetime "api_created_at", precision: nil
+    t.datetime "api_updated_at", precision: nil
+    t.datetime "api_expires_at", precision: nil
+    t.datetime "published_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["api_collection_id"], name: "index_articles_on_api_collection_id"
+    t.index ["api_created_at"], name: "index_articles_on_api_created_at"
+    t.index ["api_distance"], name: "index_articles_on_api_distance"
+    t.index ["api_expires_at"], name: "index_articles_on_api_expires_at"
+    t.index ["api_id"], name: "index_articles_on_api_id", unique: true
+    t.index ["api_impression_count"], name: "index_articles_on_api_impression_count"
+    t.index ["api_like_count"], name: "index_articles_on_api_like_count"
+    t.index ["api_price"], name: "index_articles_on_api_price"
+    t.index ["api_section"], name: "index_articles_on_api_section"
+    t.index ["api_status"], name: "index_articles_on_api_status"
+    t.index ["api_updated_at"], name: "index_articles_on_api_updated_at"
+    t.index ["api_user_rating_count"], name: "index_articles_on_api_user_rating_count"
+    t.index ["api_user_rating_number"], name: "index_articles_on_api_user_rating_number"
+    t.index ["api_view_count"], name: "index_articles_on_api_view_count"
+    t.index ["published_at"], name: "index_articles_on_published_at"
+    t.index ["title"], name: "index_articles_on_title"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "comments", "articles"
 end
