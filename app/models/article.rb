@@ -30,7 +30,7 @@ class Article < ApplicationRecord
   validates_uniqueness_of :api_id
 
   def total_likes
-    likes.count + api_like_count
+    likes_count + api_like_count
   end
 
 end
