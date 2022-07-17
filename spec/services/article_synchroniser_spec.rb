@@ -30,7 +30,6 @@ RSpec.describe ArticleSynchroniser do
         let(:an_instance) { ArticleSynchroniser.new(article_fetcher: OpenStruct.new(fetch_articles: articles))}
         context 'when no local articles exist' do
           it 'creates published articles' do
-            Article.delete_all
             expect(Article.published.count).to eql 0
             an_instance.sync_and_publish!
             expect(Article.published.count).to eql articles.count
@@ -44,7 +43,6 @@ RSpec.describe ArticleSynchroniser do
           let(:articles) { [{'id' => 9, 'title' => 'Hello'},{'id' => 11, 'title' => 'There'}] }
           let(:an_instance) { ArticleSynchroniser.new(article_fetcher: OpenStruct.new(fetch_articles: articles))}
           it 'synchronises published articles and unpublishes articles not present' do
-            Article.delete_all
             la_count = local_articles.count
             expect(Article.published.count).to eql la_count
             an_instance.sync_and_publish!
@@ -66,7 +64,6 @@ RSpec.describe ArticleSynchroniser do
           }
           let(:local_articles) { Article.create!(article_defs) }
           it 'unpublishes all articles' do
-            Article.delete_all
             la_count = local_articles.count
             expect(Article.published.count).to eql la_count
             an_instance.sync_and_publish!

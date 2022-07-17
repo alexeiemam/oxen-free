@@ -54,7 +54,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_17_061508) do
 
   create_table "articles", force: :cascade do |t|
     t.integer "api_id", null: false
-    t.jsonb "source"
+    t.jsonb "source", default: {}
     t.string "title"
     t.integer "api_collection_id"
     t.string "api_status"
