@@ -4,6 +4,7 @@
   # Ensure Semantic html
   # Improve Accessibility / aria attributes
   # Add image gallery with lightbox overlay effect
+  # Ensure strings localisation via config/locales and use of t().
 %>
 <article id="<%= dom_id article %>" itemscope itemtype="http://schema.org/Article">
   <header>
@@ -30,8 +31,12 @@
       <dd><%= article.api_status %></dd>
 
       <dt>Likes</dt>
-      <dd><%= article.total_likes %></dd>
-      <%= render "likes/new", article: article %>
+      <dd><%= article.total_likes %> <%= render "likes/new", article: article %></dd>
+      <ul>
+        <% article.likes.order(created_at: :desc).limit(1).each do |like| %>
+        <li><%= render "likes/like", like: like %></li>
+        <% end %>
+      </ul>
 
       <dt>Views</dt>
       <dd><%= article.api_view_count %></dd>
