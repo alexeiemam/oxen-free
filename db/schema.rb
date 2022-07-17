@@ -53,9 +53,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_17_061508) do
   end
 
   create_table "articles", force: :cascade do |t|
+    t.integer "api_id", null: false
     t.jsonb "source"
     t.string "title"
-    t.integer "api_id"
     t.integer "api_collection_id"
     t.string "api_status"
     t.string "api_section"
@@ -77,7 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_17_061508) do
     t.index ["api_created_at"], name: "index_articles_on_api_created_at"
     t.index ["api_distance"], name: "index_articles_on_api_distance"
     t.index ["api_expires_at"], name: "index_articles_on_api_expires_at"
-    t.index ["api_id"], name: "index_articles_on_api_id"
+    t.index ["api_id"], name: "index_articles_on_api_id", unique: true
     t.index ["api_impression_count"], name: "index_articles_on_api_impression_count"
     t.index ["api_like_count"], name: "index_articles_on_api_like_count"
     t.index ["api_price"], name: "index_articles_on_api_price"
