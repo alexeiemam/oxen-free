@@ -9,7 +9,7 @@
 %>
 <article id="<%= dom_id article %>" itemscope itemtype="http://schema.org/Article">
   <header>
-    <h2 itemprop="headline"><%= article.title %></h2>
+    <a href="<%= url_for(article) %>"><h2 itemprop="headline"><%= article.title %></h2></a>
     <div class="article-images">
     <% article.source['images']&.each_with_index do |image, ix| %>
       <a href="<%= image['files']['original'] %>" target='_blank'>
