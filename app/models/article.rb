@@ -1,8 +1,7 @@
 class Article < ApplicationRecord
   has_many :likes
-  validates_uniqueness_of :api_id
 
-  scope :published,       -> { where("published_at <= ?", Time.current) }
+  scope :published,       -> { where("published_at <= ?", Time.current).order(api_created_at: :desc, api_id: :desc) }
   scope :by_publish_date, -> { order(api_created_at: :desc, api_id: :desc) }
   scope :by_expiry,       -> { order(api_expires_at: :asc) }
   scope :by_updated,      -> { order(api_updated_at: :desc)}
@@ -27,6 +26,8 @@ class Article < ApplicationRecord
   def to_param
     api_id.to_s
   end
+
+  validates_uniqueness_of :api_id
 
   def total_likes
     likes.count + api_like_count
