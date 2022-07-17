@@ -3,6 +3,10 @@ class LikesController < ApplicationController
 
   def create
     @article.likes.create!
+    # @todo
+    # Determine why redirect_back to index does not update the like count on an article
+    # but redirect to article does
+    # redirect_back_or_to(url_for(@article))
     redirect_to (url_for(@article))
   end
 
