@@ -5,7 +5,7 @@
 It permits those articles to be "Liked".
 That is all it does.
 
-It is built upon a [demo application built elsewhere](https://github.com/ryanwi/rails7-on-docker) whose setup instructions are so comprehensive
+It is built upon a [demo application built elsewhere](https://github.com/ryanwi/rails7-on-docker) whose [setup instructions](https://github.com/alexeiemam/oxen-free/blob/main/README.md#rails-7-on-docker-demo-application) are so comprehensive
 that I have left them verbatim below.
 
 It does not mention that you will need to [install Docker](https://www.docker.com/products/docker-desktop/) as a prerequisite... but you can go your own non-docker way if you prefer to live the renegade life close to the metal.
