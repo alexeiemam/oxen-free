@@ -1,4 +1,7 @@
 class ArticleSynchroniser
+  # This class handles the business of synchronising article data
+  # between the API and the local data store
+
   class ArticleFetcherUnsupportedError < StandardError; end
   attr_reader :article_fetcher
 
@@ -7,6 +10,12 @@ class ArticleSynchroniser
     raise ArticleFetcherUnsupportedError unless article_fetcher.respond_to?(:fetch_articles)
   end
 
+  # The `sync_and_publish!`` method
+  #
+  # - Fetches remote articles
+  # - Unpublishes any existing local articles that aren't part of the set of remote articles
+  # - Creates or Updates in the local datastore
+  # - Publishes any created or updated local articles
   def sync_and_publish!
     return unpublishable_local_articles.update_all(published_at: nil) if formatted_article_payloads.empty?
     Article.transaction do
@@ -37,6 +46,12 @@ class ArticleSynchroniser
       @unpublishable_local_articles ||= Article.where.not(api_id: current_remote_article_ids)
     end
 
+    # The `formatted_article_payloads` method
+    # formats article data from the API into attributes
+    # for local article records
+    #
+    # i.e. it flattens data that has behavioural significance and stores the rest
+    # unstructured
     def formatted_article_payloads
       @formatted_article_payloads ||=
         current_remote_articles.map do |api_article|
