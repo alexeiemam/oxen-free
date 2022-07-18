@@ -41,6 +41,10 @@ docker compose run --rm web bin/rails db:setup
 docker compose up
 ```
 
+## Viewing a page on the Rails app, once running
+visit http://localhost:3000
+
+
 ## Running the Rails console
 When the app is already running with `docker-compose` up, attach to the container:
 ```
@@ -67,6 +71,13 @@ docker compose up --build
 
 ```
 docker build -f production.Dockerfile .
+```
+
+## Deploying to the heroku platform (once appropriate permissions have been granted) 
+```
+heroku login
+heroku git:remote -r PROD -a oliolioxenfree
+git push PROD main  
 ```
 
 ## Credits/References
