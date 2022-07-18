@@ -1,11 +1,12 @@
 <%
-  #TODO
-  # - Move Styling out of html
+  # @TODO
+  # - Move Styling out of html inline style defs
   # - Ensure Semantic html
   # - Improve Accessibility / aria attributes
   # - Add image gallery with lightbox overlay effect
   # - Ensure strings localisation via config/locales and use of t().
   # - Output timezone or match timezone to user locale
+  # - Make less ugly
 %>
 
 <article id="<%= dom_id article %>" itemscope itemtype="http://schema.org/Article">
@@ -79,8 +80,5 @@
       <dd><%= article.api_distance %> (kilometres? miles? parsecs?)</dd>
 
     </dl>
-
-
-    </div>
   </header>
 </article>
